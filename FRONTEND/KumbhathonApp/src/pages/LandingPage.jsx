@@ -92,13 +92,13 @@ const LandingPage = () => {
   if (currentView === 'detail' && selectedProperty) {
     return (
       <div className="landing-page">
-        <Header 
-          isLoggedIn={isLoggedIn} 
+        <Header
+          isLoggedIn={isLoggedIn}
           onAuthClick={handleAuthClick}
           onLogout={handleLogout}
           onNavigate={setCurrentView}
         />
-        <PropertyDetailPage 
+        <PropertyDetailPage
           property={selectedProperty}
           onBack={handleBackToListings}
         />
@@ -110,13 +110,13 @@ const LandingPage = () => {
   if (currentView === 'listings') {
     return (
       <div className="landing-page">
-        <Header 
-          isLoggedIn={isLoggedIn} 
+        <Header
+          isLoggedIn={isLoggedIn}
           onAuthClick={handleAuthClick}
           onLogout={handleLogout}
           onNavigate={setCurrentView}
         />
-        <CategoryListingsPage 
+        <CategoryListingsPage
           accommodations={accommodations}
           type={selectedCategory}
           onBack={handleBackToLanding}
@@ -129,8 +129,8 @@ const LandingPage = () => {
 
   return (
     <div className="landing-page">
-      <Header 
-        isLoggedIn={isLoggedIn} 
+      <Header
+        isLoggedIn={isLoggedIn}
         onAuthClick={handleAuthClick}
         onLogout={handleLogout}
         onNavigate={setCurrentView}
@@ -138,7 +138,7 @@ const LandingPage = () => {
       
       <main className="main-content">
         <HeroSection />
-        
+
         <div className="accommodations-section">
           <div className="accommodations-content">
             <div className="section-header">
@@ -148,28 +148,28 @@ const LandingPage = () => {
               </p>
             </div>
 
-            <CategoryCarousel 
+            <CategoryCarousel
               title="Hotels"
               items={accommodations.hotels}
               onSeeMore={() => handleSeeMore('hotels')}
               onCardClick={handleCardClick}
             />
 
-            <CategoryCarousel 
+            <CategoryCarousel
               title="Homestays"
               items={accommodations.homestays}
               onSeeMore={() => handleSeeMore('homestays')}
               onCardClick={handleCardClick}
             />
 
-            <CategoryCarousel 
+            <CategoryCarousel
               title="Tents"
               items={accommodations.tents}
               onSeeMore={() => handleSeeMore('tents')}
               onCardClick={handleCardClick}
             />
 
-            <CategoryCarousel 
+            <CategoryCarousel
               title="Dormitories"
               items={accommodations.dormitories}
               onSeeMore={() => handleSeeMore('dormitories')}

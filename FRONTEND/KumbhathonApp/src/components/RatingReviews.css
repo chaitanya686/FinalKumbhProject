@@ -1,0 +1,162 @@
+.rating-reviews-section {
+  margin: 2rem 0;
+}
+
+.ratings-overview {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.overall-rating {
+  text-align: center;
+}
+
+.rating-score {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #FF9933;
+  margin-bottom: 0.5rem;
+}
+
+.rating-stars {
+  margin-bottom: 0.5rem;
+}
+
+.rating-stars .fa-star {
+  color: #FF9933;
+  margin: 0 2px;
+  font-size: 1.2rem;
+}
+
+.rating-stars .fa-star.empty {
+  color: #e5e7eb;
+}
+
+.rating-count {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.rating-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rating-item {
+  display: grid;
+  grid-template-columns: 100px 1fr 50px;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rating-label {
+  font-weight: 500;
+  color: #374151;
+}
+
+.rating-bar {
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.rating-fill {
+  height: 100%;
+  background: #FF9933;
+  transition: width 0.3s ease;
+}
+
+.rating-value {
+  font-weight: 600;
+  color: #FF9933;
+  text-align: right;
+}
+
+.reviews-list {
+  margin-top: 2rem;
+}
+
+.reviews-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #1f2937;
+}
+
+.review-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  background: white;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.reviewer-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.reviewer-info {
+  flex: 1;
+}
+
+.reviewer-name {
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.25rem 0;
+}
+
+.review-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.review-stars .fa-star {
+  color: #FF9933;
+  margin-right: 2px;
+  font-size: 0.9rem;
+}
+
+.review-stars .fa-star.empty {
+  color: #e5e7eb;
+}
+
+.review-date {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.review-comment {
+  color: #4b5563;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .ratings-overview {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .rating-item {
+    grid-template-columns: 80px 1fr 40px;
+    gap: 0.75rem;
+  }
+}

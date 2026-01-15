@@ -8,7 +8,7 @@
   font-weight: bold;
   color: #1F2937;
   text-align: center;
-  padding: 2rem 1rem 1rem;
+  padding: 1rem 1rem 2rem;
   max-width: 1280px;
   margin: 0 auto;
 }
@@ -20,6 +20,7 @@
   position: relative;
   background: #F3F4F6;
   margin-bottom: 0.5rem;
+  margin: 0rem 0rem 2rem;
 }
 
 .slider-track {
@@ -44,6 +45,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -53,7 +55,7 @@
   .hero-title {
     font-size: 2.25rem;
   }
-  
+
   .slide {
     flex: 0 0 300px;
   }
