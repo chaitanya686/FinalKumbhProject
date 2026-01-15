@@ -63,11 +63,7 @@ const ContactUs = () => {
       question: "Are the accommodations near the main bathing ghats?",
       answer: "Yes, we carefully select accommodations based on proximity to the main bathing ghats. Most properties are within 1-3 km walking distance or have shuttle services available."
     },
-    {
-      id: 4,
-      question: "Do you provide airport/railway station pickup?",
-      answer: "Yes, we offer pickup services from Nashik Airport and Railway Station. This can be added during booking for an additional fee. Our drivers are familiar with the Kumbh Mela routes and restrictions."
-    },
+    
     {
       id: 5,
       question: "Is food provided at the accommodations?",
@@ -113,15 +109,27 @@ const ContactUs = () => {
 
   return (
     <div className="contact-page">
+      {/* Success Message at Top */}
+      {submitSuccess && (
+        <div className="success-message-top">
+          <div className="success-content">
+            <i className="fas fa-check-circle"></i>
+            <div>
+              <h3>Message Sent Successfully!</h3>
+              <p>Thank you for contacting Kumbhathon 2027. Our team will respond within 24 hours.</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
       <div className="contact-hero">
         <div className="hero-overlay">
           <div className="hero-content">
-            <h1 className="hero-title">Contact Kumbhathon 2027</h1>
-            <p className="hero-subtitle">Your Sacred Journey, Our Responsibility</p>
-            <p className="hero-description">
-              Have questions about your Kumbh Mela stay? Our dedicated team is here to help you 
-              plan your spiritual journey to Nashik.
+            <p className="hero-title">Contact Kumbhathon 2027</p>
+            <p className="hero-subtitle"><span>Your Sacred Journey, Our Responsibility .</span>
+            <br />
+              Planning your stay for Kumbh Mela 2027 in Nashik? Our dedicated support team is here to assist you with accommodations, safety, and a peaceful spiritual experience.
             </p>
           </div>
         </div>
@@ -157,16 +165,6 @@ const ContactUs = () => {
               <h2 className="form-title">Send us a Message</h2>
               <p className="form-subtitle">Fill out the form below and we'll get back to you within 24 hours</p>
             </div>
-
-            {submitSuccess && (
-              <div className="success-message">
-                <i className="fas fa-check-circle"></i>
-                <div>
-                  <h3>Message Sent Successfully!</h3>
-                  <p>Thank you for contacting Kumbhathon 2027. Our team will respond within 24 hours.</p>
-                </div>
-              </div>
-            )}
 
             <form onSubmit={handleSubmit} className="contact-form">
               <div className="form-grid">
@@ -306,29 +304,31 @@ const ContactUs = () => {
               </div>
               
               <div className="map-placeholder">
-                <div className="map-image">
-                  <div className="map-overlay">
-                    <div className="map-info">
-                      <h4>Kumbhathon Headquarters</h4>
-                      <p>Near Ram Kund, Panchavati</p>
-                      <p>Nashik, Maharashtra 422003</p>
-                      <button className="directions-btn">
-                        <i className="fas fa-directions"></i>
-                        Get Directions
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <div className="map-image"></div>
               </div>
 
-              <div className="location-tips">
-                <h4><i className="fas fa-lightbulb"></i> Pro Tips for Visiting</h4>
-                <ul>
-                  <li>Best time to visit: Weekdays between 10 AM - 4 PM</li>
-                  <li>Carry government ID for verification</li>
-                  <li>Parking available 200m from office</li>
-                  <li>Nearest landmark: Ram Kund Temple</li>
-                </ul>
+              <div className="map-footer">
+                <div className="map-info-card">
+                  <div className="map-info">
+                    <h4><i className="fas fa-building"></i> Kumbhathon Headquarters</h4>
+                    <p>Near Ram Kund, Panchavati</p>
+                    <p>Nashik, Maharashtra 422003</p>
+                  </div>
+                  <div className="map-actions">
+                    <button className="map-btn directions-btn">
+                      <i className="fas fa-directions"></i>
+                      Get Directions
+                    </button>
+                    <button className="map-btn call-btn">
+                      <i className="fas fa-phone"></i>
+                      Call Now
+                    </button>
+                    <button className="map-btn email-btn">
+                      <i className="fas fa-envelope"></i>
+                      Email Us
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
