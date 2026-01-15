@@ -14,7 +14,6 @@ const HeroSection = ({ onSearch }) => {
 
   return (
     <div className="hero-section">
-      <h1 className="hero-title">Experience Kumbh 2027 in Nashik</h1>
       <p className="hero-tagline">A safe place to rest, on a sacred journey.</p>
       <div className="hero-image-slider">
         <div className="slider-track">
