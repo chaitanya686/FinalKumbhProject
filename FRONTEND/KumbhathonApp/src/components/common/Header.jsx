@@ -41,7 +41,9 @@ const Header = ({ isLoggedIn, onAuthClick, onLogout, onNavigate }) => {
 
   const getInitials = (name) => {
     if (!name) return 'U';
-    return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+    const parts = name.split(' ').filter(Boolean);
+    if (parts.length === 0) return 'U';
+    return parts.map(n => n[0]).join('').toUpperCase().slice(0, 2);
   };
 
   const getRoleDisplay = (role) => {

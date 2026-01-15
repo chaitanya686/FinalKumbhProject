@@ -58,10 +58,10 @@ const LandingPage = () => {
       console.error('Error loading properties:', error);
       // Fallback to dummy data if API fails
       setProperties({
-        hotels: accommodations.hotels,
-        homestays: accommodations.homestays,
-        tents: accommodations.tents,
-        dormitories: accommodations.dormitories
+        hotels: accommodations.hotels || [],
+        homestays: accommodations.homestays || [],
+        tents: accommodations.tents || [],
+        dormitories: accommodations.dormitories || []
       });
     } finally {
       setLoading(false);

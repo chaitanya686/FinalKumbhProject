@@ -82,7 +82,7 @@ const SearchBar = ({ onSearch }) => {
                 id="guests"
                 min="1"
                 value={searchData.guests}
-                onChange={(e) => setSearchData({ ...searchData, guests: e.target.value })}
+                onChange={(e) => setSearchData({ ...searchData, guests: parseInt(e.target.value) || 1 })}
                 placeholder=" "
               />
               <label htmlFor="guests" className="floating-label">Guests</label>

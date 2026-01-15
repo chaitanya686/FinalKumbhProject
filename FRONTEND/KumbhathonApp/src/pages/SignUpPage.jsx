@@ -34,7 +34,11 @@ const SignUpPage = ({ onClose, onSwitchToLogin, onSuccess }) => {
       };
 
       if (userType === 'customer') {
-        userData.name = `${formData.firstName} ${formData.middleName} ${formData.surname}`.trim();
+        const fullName = [formData.firstName, formData.middleName, formData.surname]
+          .filter(Boolean)
+          .join(' ')
+          .trim();
+        userData.name = fullName || 'User';
       } else {
         userData.name = formData.propertyName;
         userData.propertyDetails = {

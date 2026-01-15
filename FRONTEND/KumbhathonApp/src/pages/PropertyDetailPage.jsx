@@ -54,7 +54,8 @@ const PropertyDetailPage = ({ property, onBack }) => {
   ];
 
   const calculateTotal = () => {
-    const pricePerNight = parseInt((property.price || `₹${property.pricing?.basePrice}`).replace(/[₹,]/g, ''));
+    const priceString = property.price || `₹${property.pricing?.basePrice}` || '₹0';
+    const pricePerNight = parseInt(priceString.replace(/[^0-9]/g, '')) || 0;
     const nights = checkIn && checkOut ? Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24)) : 1;
     return pricePerNight * nights * guests;
   };

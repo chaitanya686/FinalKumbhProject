@@ -20,7 +20,7 @@ const CategoryCarousel = ({ title, description, items, onSeeMore, onCardClick })
       <div className="category-carousel">
         {items.slice(0, 5).map((item) => (
           <AccommodationCard 
-            key={item.id} 
+            key={item.id || item._id || Math.random()} 
             accommodation={item} 
             onClick={() => onCardClick(item)}
           />
