@@ -14,7 +14,7 @@
 }
 
 .hero-image-slider {
-  height: 24rem;
+  height: 16rem;
   width: 100%;
   overflow: hidden;
   position: relative;
@@ -28,7 +28,7 @@
 
 .slide {
   flex: 0 0 400px;
-  height: 24rem;
+  height: 16rem;
   margin-right: 1rem;
 }
 

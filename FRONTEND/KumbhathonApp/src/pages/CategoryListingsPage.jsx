@@ -41,17 +41,14 @@ const CategoryListingsPage = ({ accommodations, onBack, onCardClick, type = 'hot
         <div className="map-planner-section">
           {/* Map Section */}
           <div className="map-container">
-            <h3 className="section-heading">Location Map</h3>
-            <div className="map-placeholder">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60196.15!2d73.7898!3d19.9975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bddeb9d3a8b2d43%3A0x4f8f8f8f8f8f8f8f!2sNashik%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1234567890"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-              ></iframe>
-            </div>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60196.15!2d73.7898!3d19.9975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bddeb9d3a8b2d43%3A0x4f8f8f8f8f8f8f8f!2sNashik%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1234567890"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+            ></iframe>
           </div>
 
           {/* AI Itinerary Planner */}
@@ -64,20 +61,26 @@ const CategoryListingsPage = ({ accommodations, onBack, onCardClick, type = 'hot
             </p>
             
             <div className="planner-form">
-              <input 
-                type="number" 
-                placeholder="Number of days" 
-                className="planner-input"
-                min="1"
-                max="30"
-              />
-              <select className="planner-input">
-                <option>Select interests</option>
-                <option>Religious Sites</option>
-                <option>Cultural Heritage</option>
-                <option>Wine Tours</option>
-                <option>Nature & Scenic</option>
-              </select>
+              <div className="form-field">
+                <label className="form-label">Number of Days</label>
+                <input 
+                  type="number" 
+                  placeholder="e.g., 3" 
+                  className="planner-input"
+                  min="1"
+                  max="30"
+                />
+              </div>
+              <div className="form-field">
+                <label className="form-label">Select Your Interests</label>
+                <select className="planner-input">
+                  <option>Choose category</option>
+                  <option>Religious Sites</option>
+                  <option>Cultural Heritage</option>
+                  <option>Wine Tours</option>
+                  <option>Nature & Scenic</option>
+                </select>
+              </div>
               <button className="planner-btn">
                 <i className="fas fa-magic"></i> Generate Itinerary
               </button>
