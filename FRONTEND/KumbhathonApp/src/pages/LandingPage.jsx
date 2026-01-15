@@ -123,14 +123,11 @@ const LandingPage = () => {
           <div className="accommodations-content">
             <div className="section-header">
               <h2 className="section-title">Choose Your Stay Experience</h2>
-              <p className="section-subtitle">
-                From luxury hotels to traditional tents, find accommodation that suits your needs for the sacred Kumbh Mela 2027
-              </p>
+             
             </div>
 
             <CategoryCarousel 
               title="Hotels"
-              description="Comfortable hotel accommodations with modern amenities near the Kumbh Mela site"
               items={accommodations.hotels}
               onSeeMore={() => handleSeeMore('hotels')}
               onCardClick={handleCardClick}
@@ -138,7 +135,6 @@ const LandingPage = () => {
 
             <CategoryCarousel 
               title="Homestays"
-              description="Experience authentic Nashik hospitality with local families"
               items={accommodations.homestays}
               onSeeMore={() => handleSeeMore('homestays')}
               onCardClick={handleCardClick}
@@ -146,7 +142,6 @@ const LandingPage = () => {
 
             <CategoryCarousel 
               title="Tents"
-              description="Traditional tent accommodations for the authentic Kumbh Mela experience"
               items={accommodations.tents}
               onSeeMore={() => handleSeeMore('tents')}
               onCardClick={handleCardClick}
@@ -154,7 +149,6 @@ const LandingPage = () => {
 
             <CategoryCarousel 
               title="Dormitories"
-              description="Budget-friendly shared accommodations for economical pilgrims"
               items={accommodations.dormitories}
               onSeeMore={() => handleSeeMore('dormitories')}
               onCardClick={handleCardClick}
