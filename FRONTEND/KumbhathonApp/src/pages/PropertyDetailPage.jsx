@@ -75,9 +75,21 @@ const PropertyDetailPage = ({ property, onBack }) => {
             <h2 className="section-title">About this property</h2>
             <p className="description-text">{property.description}</p>
             <p className="description-text">
-              Located in the heart of Nashik, this property offers easy access to all major Kumbh Mela sites. 
+              Located in the heart of Nashik, this property offers easy access to all major Kumbh Mela sites.
               Experience comfort and spirituality combined with modern amenities and traditional hospitality.
             </p>
+          </div>
+          {/* Map Section */}
+          <div className="map-container">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60196.15!2d73.7898!3d19.9975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bddeb9d3a8b2d43%3A0x4f8f8f8f8f8f8f8f!2sNashik%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1234567890"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+            //title="Nashik Map"
+            ></iframe>
           </div>
 
           <div className="host-section">
@@ -111,6 +123,9 @@ const PropertyDetailPage = ({ property, onBack }) => {
 
           <RatingReviews />
 
+
+
+
           <div className="sanitation-section">
             <h2 className="section-title">
               <i className="fas fa-check-circle"></i> Sanitation & Hygiene
@@ -121,7 +136,7 @@ const PropertyDetailPage = ({ property, onBack }) => {
               <span className="badge">✓ Clean Water Supply</span>
               <span className="badge">✓ Waste Management</span>
             </div>
-            
+
             <h3 className="subsection-title">Bathroom Facilities</h3>
             <div className="bathroom-grid">
               {bathroomImages.map((img, idx) => (
@@ -129,6 +144,8 @@ const PropertyDetailPage = ({ property, onBack }) => {
               ))}
             </div>
           </div>
+
+
 
           <button className="host-connect-btn">
             <i className="fas fa-comments"></i> Connect with Host
@@ -159,7 +176,7 @@ const PropertyDetailPage = ({ property, onBack }) => {
 
           <div className="payment-section">
             <h2 className="section-title">Booking Details</h2>
-            
+
             <div className="price-display">
               <span className="price-label">Price per night</span>
               <span className="price-value">{property.price}</span>
@@ -168,8 +185,8 @@ const PropertyDetailPage = ({ property, onBack }) => {
             <div className="booking-form">
               <div className="form-group">
                 <label>Check-in</label>
-                <input 
-                  type="date" 
+                <input
+                  type="date"
                   value={checkIn}
                   onChange={(e) => setCheckIn(e.target.value)}
                   className="date-input"
@@ -178,8 +195,8 @@ const PropertyDetailPage = ({ property, onBack }) => {
 
               <div className="form-group">
                 <label>Check-out</label>
-                <input 
-                  type="date" 
+                <input
+                  type="date"
                   value={checkOut}
                   onChange={(e) => setCheckOut(e.target.value)}
                   className="date-input"
@@ -188,12 +205,12 @@ const PropertyDetailPage = ({ property, onBack }) => {
 
               <div className="form-group">
                 <label>Number of Guests</label>
-                <select 
+                <select
                   value={guests}
                   onChange={(e) => setGuests(parseInt(e.target.value))}
                   className="guest-select"
                 >
-                  {[1,2,3,4,5,6].map(num => (
+                  {[1, 2, 3, 4, 5, 6].map(num => (
                     <option key={num} value={num}>{num} Guest{num > 1 ? 's' : ''}</option>
                   ))}
                 </select>
