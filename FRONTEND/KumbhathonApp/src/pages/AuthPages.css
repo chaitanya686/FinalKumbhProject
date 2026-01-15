@@ -1,290 +1,301 @@
-/* Auth Page - Split Layout Container */
-.auth-page {
-  display: flex;
-  min-height: 100vh;
-  background: #FFFFFF;
-}
-
-/* Left Panel - Form (45% width) */
-.auth-form-panel {
-  flex: 0 0 45%;
+/* Overlay - Blurred background */
+.auth-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-  background: #FAFAFA;
+  z-index: 9999;
+  padding: 1.5rem;
+  animation: fadeIn 0.3s ease;
 }
 
-.auth-form-container {
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Modal Container */
+.auth-modal {
+  background: #FFFFFF;
+  border-radius: 1.25rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 900px;
   width: 100%;
-  max-width: 420px;
+  max-height: 90vh;
+  overflow: hidden;
+  position: relative;
+  animation: slideUp 0.4s ease;
 }
 
-/* Header: Clear hierarchy */
-.auth-header {
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Close Button */
+.auth-close-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #6B7280;
+  font-size: 1.25rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.auth-close-btn:hover {
+  background: #FF9933;
+  color: #FFFFFF;
+  transform: rotate(90deg);
+}
+
+/* Modal Content - Two Columns */
+.auth-modal-content {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  min-height: 600px;
+}
+
+/* Left - Visual Side */
+.auth-visual-side {
+  background: #F9FAFB;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-visual-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Right - Form Side */
+.auth-form-side {
+  padding: 3rem 2.5rem;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+.auth-form-side::-webkit-scrollbar {
+  width: 6px;
+}
+
+.auth-form-side::-webkit-scrollbar-thumb {
+  background: #D1D5DB;
+  border-radius: 10px;
+}
+
+.auth-form-header {
   margin-bottom: 2rem;
 }
 
-.auth-title {
+.auth-form-title {
   font-size: 1.875rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #111827;
   margin-bottom: 0.5rem;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   letter-spacing: -0.02em;
-  line-height: 1.2;
 }
 
-.auth-subtitle {
+.auth-form-subtitle {
   font-size: 0.9375rem;
   color: #6B7280;
-  line-height: 1.5;
   font-weight: 400;
 }
 
-/* Form: Solid, calm, reliable */
-.auth-form {
+/* Form */
+.auth-form-main {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
 }
 
-.form-group {
+.auth-input-group {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.form-label {
+.auth-label {
   font-size: 0.875rem;
   font-weight: 500;
   color: #374151;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-.form-input {
+.auth-input {
   padding: 0.75rem 1rem;
-  border: 1px solid #D1D5DB;
-  border-radius: 0.5rem;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 0.625rem;
   font-size: 0.9375rem;
   background-color: #FFFFFF;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: #111827;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-  height: 2.75rem;
+  transition: all 0.2s ease;
 }
 
-.form-input:focus {
+.auth-input:focus {
   outline: none;
   border-color: #FF9933;
-  box-shadow: 0 0 0 3px rgba(255, 153, 51, 0.08);
+  box-shadow: 0 0 0 4px rgba(255, 153, 51, 0.1);
 }
 
-.form-input::placeholder {
+.auth-input::placeholder {
   color: #9CA3AF;
 }
 
-/* CTA: Confident, not flashy */
-.auth-btn-primary {
+/* Submit Button */
+.auth-submit-btn {
   width: 100%;
   padding: 0.875rem 1.5rem;
-  background-color: #FF9933;
+  background: linear-gradient(135deg, #FF9933 0%, #E68A00 100%);
   color: #FFFFFF;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 0.625rem;
   font-weight: 600;
   font-size: 0.9375rem;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(255, 153, 51, 0.3);
   margin-top: 0.5rem;
 }
 
-.auth-btn-primary:hover {
-  background-color: #E68A00;
+.auth-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 153, 51, 0.4);
 }
 
-/* Trust Badge: Subtle reassurance */
-.auth-trust-badge {
+.auth-submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Divider */
+.auth-divider {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  background: #F0FDF4;
-  border: 1px solid #D1FAE5;
-  border-radius: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.auth-trust-badge i {
-  color: #10B981;
-  font-size: 0.875rem;
-}
-
-.auth-trust-badge span {
-  font-size: 0.8125rem;
-  color: #065F46;
-  line-height: 1.4;
-}
-
-/* Footer: Low visual weight */
-.auth-footer {
-  margin-top: 1.5rem;
   text-align: center;
-}
-
-.auth-switch {
+  margin: 1.5rem 0 1rem;
+  color: #9CA3AF;
   font-size: 0.875rem;
-  color: #6B7280;
 }
 
-.auth-link {
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.auth-divider span {
+  padding: 0 1rem;
+}
+
+/* Switch Text */
+.auth-switch-text {
+  text-align: center;
+  font-size: 0.9375rem;
+  color: #6B7280;
+  margin: 0;
+}
+
+.auth-switch-btn {
   background: none;
   border: none;
   color: #FF9933;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  margin-left: 0.25rem;
-  text-decoration: none;
+  margin-left: 0.375rem;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.9375rem;
+  transition: color 0.2s ease;
 }
 
-.auth-link:hover {
+.auth-switch-btn:hover {
   color: #E68A00;
   text-decoration: underline;
 }
 
-/* Right Panel - Visual Storytelling (55% width) */
-.auth-visual-panel {
-  flex: 0 0 55%;
-  position: relative;
-  background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 50%, #FED7AA 100%);
-  overflow: hidden;
-}
-
-.visual-content {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem;
-}
-
-/* Abstract shapes inspired by pilgrimage paths */
-.visual-shape {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0.15;
-}
-
-.shape-1 {
-  width: 400px;
-  height: 400px;
-  background: #FF9933;
-  top: -100px;
-  right: -100px;
-}
-
-.shape-2 {
-  width: 300px;
-  height: 300px;
-  background: #E68A00;
-  bottom: -80px;
-  left: -80px;
-}
-
-.shape-3 {
-  width: 200px;
-  height: 200px;
-  background: #FF9933;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0.08;
-}
-
-/* Visual text content */
-.visual-text {
-  position: relative;
-  z-index: 10;
-  text-align: center;
-  max-width: 480px;
-}
-
-.visual-heading {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #78350F;
-  margin-bottom: 0.5rem;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  letter-spacing: -0.03em;
-}
-
-.visual-subheading {
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: #92400E;
-  margin-bottom: 1.5rem;
-}
-
-.visual-description {
-  font-size: 1.0625rem;
-  color: #78350F;
-  line-height: 1.6;
-  font-weight: 400;
-}
-
-/* Responsive: Tablet */
-@media (max-width: 1024px) {
-  .auth-page {
-    flex-direction: column;
-  }
-
-  .auth-form-panel,
-  .auth-visual-panel {
-    flex: 1 1 auto;
-  }
-
-  .auth-visual-panel {
-    min-height: 300px;
-  }
-
-  .visual-heading {
-    font-size: 2rem;
-  }
-}
-
-/* Responsive: Mobile */
+/* Responsive - Tablet */
 @media (max-width: 768px) {
-  .auth-form-panel {
-    padding: 1.5rem;
+  .auth-modal-content {
+    grid-template-columns: 1fr;
   }
 
-  .auth-visual-panel {
+  .auth-visual-side {
     min-height: 200px;
+    padding: 2rem 1.5rem;
   }
 
-  .visual-text {
-    padding: 1.5rem;
+  .brand-icon {
+    font-size: 2.5rem;
   }
 
-  .visual-heading {
+  .auth-brand h3 {
     font-size: 1.5rem;
   }
 
-  .visual-subheading {
-    font-size: 1rem;
-  }
-
-  .visual-description {
+  .auth-tagline {
     font-size: 0.9375rem;
   }
 
-  .shape-1,
-  .shape-2 {
-    display: none;
+  .auth-form-side {
+    padding: 2rem 1.5rem;
+  }
+
+  .auth-form-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 480px) {
+  .auth-overlay {
+    padding: 0;
+  }
+
+  .auth-modal {
+    border-radius: 0;
+    max-height: 100vh;
+  }
+
+  .auth-visual-side {
+    min-height: 150px;
+    padding: 1.5rem 1rem;
+  }
+
+  .auth-form-side {
+    padding: 1.5rem 1rem;
   }
 }
