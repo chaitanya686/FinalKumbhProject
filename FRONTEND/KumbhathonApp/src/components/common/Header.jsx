@@ -117,14 +117,16 @@ const Header = ({ isLoggedIn, onAuthClick, onLogout, onNavigate }) => {
                   Dashboard
                 </button>
               )}
-              <button 
-                onClick={() => onNavigate && onNavigate('bookings')} 
-                className="dashboard-link"
-                style={{marginLeft: '0.5rem'}}
-              >
-                <i className="fas fa-calendar-check"></i>
-                My Bookings
-              </button>
+              {user?.role !== 'host' && (
+                <button 
+                  onClick={() => onNavigate && onNavigate('bookings')} 
+                  className="dashboard-link"
+                  style={{marginLeft: '0.5rem'}}
+                >
+                  <i className="fas fa-calendar-check"></i>
+                  My Bookings
+                </button>
+              )}
               <div className="profile-info">
                 <p className="profile-name">{user?.name || 'User'}</p>
                 <p className="profile-role">{getRoleDisplay(user?.role)}</p>
