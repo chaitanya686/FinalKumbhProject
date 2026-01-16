@@ -170,6 +170,25 @@ const LandingPage = () => {
     );
   }
 
+  // Show Dashboard Page
+  if (currentView === 'dashboard') {
+    const HostDashboard = React.lazy(() => import('./HostDashboard'));
+    return (
+      <div className="landing-page">
+        <Header
+          isLoggedIn={isLoggedIn}
+          onAuthClick={handleAuthClick}
+          onLogout={handleLogout}
+          onNavigate={setCurrentView}
+        />
+        <React.Suspense fallback={<div style={{padding: '2rem', textAlign: 'center'}}>Loading...</div>}>
+          <HostDashboard onBack={() => setCurrentView('landing')} />
+        </React.Suspense>
+        <Footer />
+      </div>
+    );
+  }
+
   // Show Contact Us Page
   if (currentView === 'contact') {
     return (
