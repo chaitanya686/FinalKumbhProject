@@ -223,3 +223,25 @@ export const bookingAPI = {
     }
   }
 };
+
+// Photo API
+export const photoAPI = {
+  // Upload photos
+  uploadPhotos: async (propertyId, formData) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_BASE_URL}/photos/${propertyId}/photos`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+};

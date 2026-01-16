@@ -362,13 +362,8 @@ const PropertyForm = ({ property, onClose }) => {
           });
 
           try {
-            await fetch(`http://localhost:5000/api/photos/${savedProperty._id}/photos`, {
-              method: 'POST',
-              headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-              },
-              body: formData
-            });
+            const { photoAPI } = await import('../services/api');
+            await photoAPI.uploadPhotos(savedProperty._id, formData);
           } catch (photoError) {
             console.error('Photo upload error:', photoError);
             alert('Property saved but photos failed to upload. You can add them later from dashboard.');
