@@ -75,7 +75,7 @@ const SignUpPage = ({ onClose, onSwitchToLogin, onSuccess }) => {
           {/* Left - Visual */}
           <div className="auth-visual-side">
             <img 
-              src="/src/data/img for signup page.png" 
+              src="/signup-image.png" 
               alt="Aasray" 
               className="auth-visual-image"
             />
