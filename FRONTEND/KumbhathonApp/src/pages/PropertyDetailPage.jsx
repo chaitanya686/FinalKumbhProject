@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './PropertyDetailPage.css';
 import RatingReviews from '../components/RatingReviews';
+import { bookingAPI, authAPI } from '../services/api';
 
 const PropertyDetailPage = ({ property, onBack }) => {
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
   const [guests, setGuests] = useState(1);
   const [showBackBtn, setShowBackBtn] = useState(true);
+  const [bookingLoading, setBookingLoading] = useState(false);
+  const [bookingError, setBookingError] = useState('');
+  const [bookingSuccess, setBookingSuccess] = useState(false);
 
   useEffect(() => {
     let lastScroll = 0;
@@ -58,6 +62,34 @@ const PropertyDetailPage = ({ property, onBack }) => {
     const pricePerNight = parseInt(priceString.replace(/[^0-9]/g, '')) || 0;
     const nights = checkIn && checkOut ? Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24)) : 1;
     return pricePerNight * nights * guests;
+  };
+
+  const handleBooking = async () => {
+    if (!authAPI.isAuthenticated()) {
+      alert('Please login to book this property');
+      return;
+    }
+    if (!checkIn || !checkOut) {
+      setBookingError('Please select check-in and check-out dates');
+      return;
+    }
+    setBookingLoading(true);
+    setBookingError('');
+    try {
+      await bookingAPI.create({
+        property: property._id || property.id,
+        checkIn,
+        checkOut,
+        guests,
+        totalPrice: calculateTotal()
+      });
+      setBookingSuccess(true);
+      alert('Booking successful!');
+    } catch (error) {
+      setBookingError(error.message);
+    } finally {
+      setBookingLoading(false);
+    }
   };
 
   return (
@@ -227,12 +259,15 @@ const PropertyDetailPage = ({ property, onBack }) => {
                 </div>
               </div>
 
+              {bookingError && <div style={{color: 'red', marginBottom: '1rem'}}>{bookingError}</div>}
+              {bookingSuccess && <div style={{color: 'green', marginBottom: '1rem'}}>Booking successful!</div>}
+
               <div className="booking-actions">
-                <button className="reserve-btn">
-                  <i className="fas fa-bookmark"></i> Reserve
+                <button className="reserve-btn" onClick={handleBooking} disabled={bookingLoading}>
+                  <i className="fas fa-bookmark"></i> {bookingLoading ? 'Processing...' : 'Reserve'}
                 </button>
-                <button className="book-btn">
-                  <i className="fas fa-check-circle"></i> Book Now
+                <button className="book-btn" onClick={handleBooking} disabled={bookingLoading}>
+                  <i className="fas fa-check-circle"></i> {bookingLoading ? 'Processing...' : 'Book Now'}
                 </button>
               </div>
             </div>

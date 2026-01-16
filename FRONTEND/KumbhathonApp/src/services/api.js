@@ -175,3 +175,51 @@ export const propertyAPI = {
     }
   }
 };
+
+// Booking API
+export const bookingAPI = {
+  // Create booking
+  create: async (bookingData) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/bookings`, {
+        method: 'POST',
+        headers: getAuthHeaders(),
+        body: JSON.stringify(bookingData)
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  // Get my bookings
+  getMyBookings: async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/bookings/my-bookings`, {
+        headers: getAuthHeaders()
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  // Cancel booking
+  cancel: async (id) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/bookings/${id}`, {
+        method: 'DELETE',
+        headers: getAuthHeaders()
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+};
