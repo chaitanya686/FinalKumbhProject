@@ -7,6 +7,7 @@ import ContactUs from './ContactUs';
 import AccommodationPage from './AccommodationPage';
 import ExploreNashikPage from './ExploreNashikPage';
 import ServicesPage from './ServicesPage';
+import MyBookings from './MyBookings';
 import HeroSection from '../components/landing/HeroSection';
 import CategoryCarousel from '../components/landing/CategoryCarousel';
 import CategoryListingsPage from './CategoryListingsPage';
@@ -136,6 +137,22 @@ const LandingPage = () => {
     setSelectedProperty(null);
     window.scrollTo(0, 0);
   };
+
+  // Show My Bookings Page
+  if (currentView === 'bookings') {
+    return (
+      <div className="landing-page">
+        <Header
+          isLoggedIn={isLoggedIn}
+          onAuthClick={handleAuthClick}
+          onLogout={handleLogout}
+          onNavigate={setCurrentView}
+        />
+        <MyBookings onBack={() => setCurrentView('landing')} />
+        <Footer />
+      </div>
+    );
+  }
 
   // Show Contact Us Page
   if (currentView === 'contact') {
