@@ -15,7 +15,7 @@ exports.createBooking = async (req, res) => {
 
     // Calculate total price
     const days = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24));
-    const totalPrice = propertyData.price * days * guests;
+    const totalPrice = propertyData.pricing.basePrice * days * guests;
 
     const booking = await Booking.create({
       property,
@@ -94,7 +94,7 @@ exports.updateBooking = async (req, res) => {
       const guests = req.body.guests || booking.guests;
       
       const days = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24));
-      req.body.totalPrice = property.price * days * guests;
+      req.body.totalPrice = property.pricing.basePrice * days * guests;
     }
 
     booking = await Booking.findByIdAndUpdate(req.params.id, req.body, {
