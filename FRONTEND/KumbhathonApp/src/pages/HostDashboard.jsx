@@ -331,11 +331,36 @@ const PropertyForm = ({ property, onClose }) => {
 
       console.log('Sending property data:', JSON.stringify(propertyData, null, 2));
 
+      let savedProperty;
       if (property) {
         await propertyAPI.update(property._id, propertyData);
+        savedProperty = property;
       } else {
-        await propertyAPI.create(propertyData);
+        const response = await propertyAPI.create(propertyData);
+        savedProperty = response.data;
       }
+
+      // Upload photos if any were selected
+      if (selectedPhotos.length > 0 && savedProperty._id) {
+        const formData = new FormData();
+        selectedPhotos.forEach(photo => {
+          formData.append('photos', photo.file);
+        });
+
+        try {
+          await fetch(`http://localhost:5000/api/photos/${savedProperty._id}/photos`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: formData
+          });
+        } catch (photoError) {
+          console.error('Photo upload error:', photoError);
+          alert('Property created but photos failed to upload. You can add them later from dashboard.');
+        }
+      }
+
       onClose();
     } catch (error) {
       alert('Error saving property: ' + error.message);
