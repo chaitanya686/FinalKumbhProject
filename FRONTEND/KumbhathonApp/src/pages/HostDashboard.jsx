@@ -294,6 +294,16 @@ const PropertyForm = ({ property, onClose }) => {
         },
         amenities: property.amenities || []
       });
+      
+      // Load existing images as previews
+      if (property.images && property.images.length > 0) {
+        const existingPhotos = property.images.map(img => ({
+          preview: img.url,
+          existing: true,
+          id: img._id
+        }));
+        setSelectedPhotos(existingPhotos);
+      }
     }
   }, [property]);
 
@@ -342,22 +352,27 @@ const PropertyForm = ({ property, onClose }) => {
 
       // Upload photos if any were selected
       if (selectedPhotos.length > 0 && savedProperty._id) {
-        const formData = new FormData();
-        selectedPhotos.forEach(photo => {
-          formData.append('photos', photo.file);
-        });
-
-        try {
-          await fetch(`http://localhost:5000/api/photos/${savedProperty._id}/photos`, {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${localStorage.getItem('token')}`
-            },
-            body: formData
+        // Only upload new photos (not existing ones)
+        const newPhotos = selectedPhotos.filter(photo => !photo.existing);
+        
+        if (newPhotos.length > 0) {
+          const formData = new FormData();
+          newPhotos.forEach(photo => {
+            formData.append('photos', photo.file);
           });
-        } catch (photoError) {
-          console.error('Photo upload error:', photoError);
-          alert('Property created but photos failed to upload. You can add them later from dashboard.');
+
+          try {
+            await fetch(`http://localhost:5000/api/photos/${savedProperty._id}/photos`, {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+              },
+              body: formData
+            });
+          } catch (photoError) {
+            console.error('Photo upload error:', photoError);
+            alert('Property saved but photos failed to upload. You can add them later from dashboard.');
+          }
         }
       }
 
@@ -381,14 +396,16 @@ const PropertyForm = ({ property, onClose }) => {
   const handlePhotoSelect = (e) => {
     const files = Array.from(e.target.files);
     
-    if (files.length + selectedPhotos.length > 5) {
+    const existingCount = selectedPhotos.length;
+    if (files.length + existingCount > 5) {
       alert('Maximum 5 photos allowed');
       return;
     }
 
     const newPhotos = files.map(file => ({
       file,
-      preview: URL.createObjectURL(file)
+      preview: URL.createObjectURL(file),
+      existing: false
     }));
 
     setSelectedPhotos(prev => [...prev, ...newPhotos]);
@@ -397,8 +414,10 @@ const PropertyForm = ({ property, onClose }) => {
   const removePhoto = (index) => {
     setSelectedPhotos(prev => {
       const updated = prev.filter((_, i) => i !== index);
-      // Clean up URL
-      URL.revokeObjectURL(prev[index].preview);
+      // Clean up URL only for new photos
+      if (!prev[index].existing && prev[index].preview) {
+        URL.revokeObjectURL(prev[index].preview);
+      }
       return updated;
     });
   };
@@ -406,9 +425,13 @@ const PropertyForm = ({ property, onClose }) => {
   // Cleanup on unmount
   React.useEffect(() => {
     return () => {
-      selectedPhotos.forEach(photo => URL.revokeObjectURL(photo.preview));
+      selectedPhotos.forEach(photo => {
+        if (!photo.existing && photo.preview) {
+          URL.revokeObjectURL(photo.preview);
+        }
+      });
     };
-  }, []);
+  }, [selectedPhotos]);
 
   const amenityOptions = [
     { value: 'wifi', label: 'WiFi', icon: 'fas fa-wifi' },
