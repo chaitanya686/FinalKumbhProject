@@ -30,7 +30,7 @@ const storage = isCloudinaryConfigured()
   ? new CloudinaryStorage({
       cloudinary: cloudinary,
       params: {
-        folder: 'kumbhathon-properties',
+        folder: 'kumbhthon',
         allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
         transformation: [
           { width: 1200, height: 800, crop: 'limit', quality: 'auto' }
