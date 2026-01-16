@@ -110,7 +110,7 @@ const Header = ({ isLoggedIn, onAuthClick, onLogout, onNavigate }) => {
             <div className="profile-container">
               {user?.role === 'host' && (
                 <button 
-                  onClick={() => onNavigate && onNavigate('dashboard')} 
+                  onClick={() => window.location.hash = 'dashboard'} 
                   className="dashboard-link"
                 >
                   <i className="fas fa-tachometer-alt"></i>
