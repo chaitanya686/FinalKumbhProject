@@ -363,7 +363,8 @@ const PropertyForm = ({ property, onClose }) => {
 
           try {
             const { photoAPI } = await import('../services/api');
-            await photoAPI.uploadPhotos(savedProperty._id, formData);
+            const uploadResult = await photoAPI.uploadPhotos(savedProperty._id, formData);
+            console.log('Photo upload success:', uploadResult);
           } catch (photoError) {
             console.error('Photo upload error:', photoError);
             alert('Property saved but photos failed to upload. You can add them later from dashboard.');
