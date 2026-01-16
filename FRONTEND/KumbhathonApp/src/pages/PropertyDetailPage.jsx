@@ -28,10 +28,16 @@ const PropertyDetailPage = ({ property, onBack, userBookings = [] }) => {
   }
 
   const additionalImages = [
-    property.image || (property.images && property.images[0]?.url) || 'https://via.placeholder.com/500x300?text=No+Image',
     "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500",
     "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=500",
-    "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=500"
+    "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=500",
+    "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500"
+  ];
+
+  // Append newly uploaded images after default images
+  const allImages = [
+    ...additionalImages,
+    ...(property.images && property.images.length > 0 ? property.images.map(img => img.url) : [])
   ];
 
   const bathroomImages = [
@@ -128,7 +134,7 @@ const PropertyDetailPage = ({ property, onBack, userBookings = [] }) => {
               <i className="fas fa-map-marker-alt"></i> {property.location?.address || property.location?.city || property.location}
             </p>
             <div className="photos-grid">
-              {additionalImages.map((img, idx) => (
+              {allImages.map((img, idx) => (
                 <img key={idx} src={img} alt={`Property ${idx + 1}`} className="gallery-image" />
               ))}
             </div>
