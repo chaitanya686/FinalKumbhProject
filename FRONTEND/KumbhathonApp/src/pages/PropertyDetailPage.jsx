@@ -73,11 +73,19 @@ const PropertyDetailPage = ({ property, onBack }) => {
       setBookingError('Please select check-in and check-out dates');
       return;
     }
+    
+    // Check if property has valid MongoDB _id
+    const propertyId = property._id;
+    if (!propertyId) {
+      alert('This is a demo property. Please select a real property from the database to book.');
+      return;
+    }
+    
     setBookingLoading(true);
     setBookingError('');
     try {
       await bookingAPI.create({
-        property: property._id || property.id,
+        property: propertyId,
         checkIn,
         checkOut,
         guests,
