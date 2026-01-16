@@ -9,7 +9,7 @@ const errorHandler = require('./src/middleware/errorHandler');
 dotenv.config();
 
 // Connect to database only if MongoDB URI is provided
-if (process.env.MONGODB_URI && process.env.MONGODB_URI !== 'mongodb://localhost:27017/kumbhathon') {
+if (process.env.MONGODB_URI && process.env.MONGODB_URI !== 'mongodb://localhost:27017/aasray') {
   connectDB();
 }
 
@@ -39,7 +39,7 @@ app.use('/api/accommodations', require('./routes/accommodations'));
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'OK', message: 'Kumbhathon API is running' });
+  res.json({ status: 'OK', message: 'Aasray API is running' });
 });
 
 // Test image upload page

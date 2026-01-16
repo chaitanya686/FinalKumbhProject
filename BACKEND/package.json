@@ -1,7 +1,7 @@
 {
-  "name": "kumbhathon-backend",
+  "name": "aasray-backend",
   "version": "1.0.0",
-  "description": "Backend API for Kumbhathon accommodation platform",
+  "description": "Backend API for Aasray accommodation platform",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -10,9 +10,10 @@
   "keywords": [
     "kumbh",
     "accommodation",
-    "booking"
+    "booking",
+    "aasray"
   ],
-  "author": "Kumbhathon Team",
+  "author": "Aasray Team",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",

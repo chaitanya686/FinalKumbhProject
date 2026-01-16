@@ -47,13 +47,23 @@ npm run dev
 http://localhost:5173
 ```
 
-### Backend Setup (if applicable)
+### Backend Setup
 
 ```bash
 # Navigate to backend
 cd BACKEND
 
-# Follow backend-specific instructions
+# Install dependencies
+npm install
+
+# Create .env file from example
+copy .env.example .env
+# Edit .env file with your credentials
+
+# Start development server
+npm run dev
+
+# Server will run on http://localhost:5000
 ```
 
 ---
@@ -91,8 +101,13 @@ cd BACKEND
 - **Styling**: Pure CSS (Modular)
 - **Icons**: Font Awesome 6.4.0
 
-### Backend (if applicable)
-- Add your backend tech stack here
+### Backend (Node.js + Express)
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **Database**: MongoDB with Mongoose
+- **Authentication**: JWT (JSON Web Tokens)
+- **File Upload**: Cloudinary
+- **Security**: bcryptjs for password hashing
 
 ---
 

@@ -79,25 +79,95 @@ const HostDashboard = () => {
   return (
     <div className="host-dashboard">
       <div className="dashboard-header">
-        <h1>My Properties</h1>
+        <div>
+          <button 
+            onClick={() => window.location.href = '/'} 
+            style={{
+              background: 'rgba(255, 255, 255, 0.2)',
+              border: 'none',
+              color: 'white',
+              padding: '0.5rem 1rem',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              marginBottom: '0.5rem',
+              fontSize: '0.875rem'
+            }}
+          >
+            <i className="fas fa-arrow-left"></i>
+            Back to Home
+          </button>
+          <h1>Host Dashboard</h1>
+        </div>
         <button className="add-property-btn" onClick={handleAddProperty}>
           <i className="fas fa-plus"></i>
           Add New Property
         </button>
       </div>
 
-      {properties.length === 0 ? (
-        <div className="no-properties">
-          <i className="fas fa-home"></i>
-          <h3>No Properties Yet</h3>
-          <p>Start by adding your first property to begin hosting guests.</p>
-          <button className="add-first-property-btn" onClick={handleAddProperty}>
-            Add Your First Property
-          </button>
+      {/* Stats Cards */}
+      <div className="dashboard-stats">
+        <div className="stats-grid">
+          <div className="stat-card">
+            <div className="stat-icon">
+              <i className="fas fa-building"></i>
+            </div>
+            <div className="stat-content">
+              <h3>{properties.length}</h3>
+              <p>Total Properties</p>
+            </div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-icon">
+              <i className="fas fa-check-circle"></i>
+            </div>
+            <div className="stat-content">
+              <h3>{properties.filter(p => p.status === 'active').length}</h3>
+              <p>Active Listings</p>
+            </div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-icon">
+              <i className="fas fa-calendar-check"></i>
+            </div>
+            <div className="stat-content">
+              <h3>0</h3>
+              <p>Total Bookings</p>
+            </div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-icon">
+              <i className="fas fa-rupee-sign"></i>
+            </div>
+            <div className="stat-content">
+              <h3>₹0</h3>
+              <p>Total Revenue</p>
+            </div>
+          </div>
         </div>
-      ) : (
-        <div className="properties-grid">
-          {properties.map(property => (
+      </div>
+
+      {/* Main Content */}
+      <div className="dashboard-content">
+        {properties.length === 0 ? (
+          <div className="no-properties">
+            <i className="fas fa-home"></i>
+            <h3>No Properties Yet</h3>
+            <p>Start by adding your first property to begin hosting guests.</p>
+            <button className="add-first-property-btn" onClick={handleAddProperty}>
+              <i className="fas fa-plus"></i>
+              Add Your First Property
+            </button>
+          </div>
+        ) : (
+          <>
+            <div className="content-header">
+              <h2>My Properties</h2>
+            </div>
+            <div className="properties-grid">
+              {properties.map(property => (
             <div key={property._id} className="property-card">
               <div className="property-image">
                 {property.images && property.images.length > 0 ? (
@@ -157,7 +227,9 @@ const HostDashboard = () => {
             </div>
           ))}
         </div>
-      )}
+          </>
+        )}
+      </div>
 
       {showAddForm && (
         <PropertyForm 
@@ -333,135 +405,176 @@ const PropertyForm = ({ property, onClose }) => {
         </div>
 
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Property Title</label>
-            <input
-              type="text"
-              value={formData.title}
-              onChange={(e) => setFormData(prev => ({...prev, title: e.target.value}))}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Description</label>
-            <textarea
-              value={formData.description}
-              onChange={(e) => setFormData(prev => ({...prev, description: e.target.value}))}
-              required
-            />
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label>Property Type</label>
-              <select
-                value={formData.type}
-                onChange={(e) => setFormData(prev => ({...prev, type: e.target.value}))}
-              >
-                <option value="homestay">Homestay</option>
-                <option value="hotel">Hotel</option>
-                <option value="tent">Tent</option>
-                <option value="dormitory">Dormitory</option>
-              </select>
+          {/* Basic Information */}
+          <div className="form-section">
+            <div className="form-section-title">
+              <i className="fas fa-info-circle"></i>
+              Basic Information
             </div>
-
+            
             <div className="form-group">
-              <label>Base Price (₹/night)</label>
-              <input
-                type="number"
-                value={formData.pricing.basePrice}
-                onChange={(e) => setFormData(prev => ({
-                  ...prev,
-                  pricing: { ...prev.pricing, basePrice: e.target.value }
-                }))}
-                required
-              />
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label>Address</label>
-            <input
-              type="text"
-              value={formData.location.address}
-              onChange={(e) => setFormData(prev => ({
-                ...prev,
-                location: { ...prev.location, address: e.target.value }
-              }))}
-              required
-            />
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label>City</label>
+              <label>Property Title <span className="required">*</span></label>
               <input
                 type="text"
-                value={formData.location.city}
-                onChange={(e) => setFormData(prev => ({
-                  ...prev,
-                  location: { ...prev.location, city: e.target.value }
-                }))}
+                placeholder="e.g., Cozy 2BHK near Godavari Ghat"
+                value={formData.title}
+                onChange={(e) => setFormData(prev => ({...prev, title: e.target.value}))}
                 required
               />
             </div>
 
             <div className="form-group">
-              <label>State</label>
+              <label>Description <span className="required">*</span></label>
+              <textarea
+                placeholder="Describe your property, its features, and what makes it special..."
+                value={formData.description}
+                onChange={(e) => setFormData(prev => ({...prev, description: e.target.value}))}
+                required
+              />
+            </div>
+
+            <div className="form-row-2">
+              <div className="form-group">
+                <label>Property Type <span className="required">*</span></label>
+                <select
+                  value={formData.type}
+                  onChange={(e) => setFormData(prev => ({...prev, type: e.target.value}))}
+                >
+                  <option value="homestay">Homestay</option>
+                  <option value="hotel">Hotel</option>
+                  <option value="tent">Tent</option>
+                  <option value="dormitory">Dormitory</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label>Base Price (₹/night) <span className="required">*</span></label>
+                <input
+                  type="number"
+                  placeholder="e.g., 2000"
+                  value={formData.pricing.basePrice}
+                  onChange={(e) => setFormData(prev => ({
+                    ...prev,
+                    pricing: { ...prev.pricing, basePrice: e.target.value }
+                  }))}
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Location Details */}
+          <div className="form-section">
+            <div className="form-section-title">
+              <i className="fas fa-map-marker-alt"></i>
+              Location Details
+            </div>
+            
+            <div className="form-group">
+              <label>Address <span className="required">*</span></label>
               <input
                 type="text"
-                value={formData.location.state}
+                placeholder="Street address, landmark"
+                value={formData.location.address}
                 onChange={(e) => setFormData(prev => ({
                   ...prev,
-                  location: { ...prev.location, state: e.target.value }
-                }))}
-                required
-              />
-            </div>
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label>Max Guests</label>
-              <input
-                type="number"
-                value={formData.capacity.maxGuests}
-                onChange={(e) => setFormData(prev => ({
-                  ...prev,
-                  capacity: { ...prev.capacity, maxGuests: e.target.value }
+                  location: { ...prev.location, address: e.target.value }
                 }))}
                 required
               />
             </div>
 
-            <div className="form-group">
-              <label>Bedrooms</label>
-              <input
-                type="number"
-                value={formData.capacity.bedrooms}
-                onChange={(e) => setFormData(prev => ({
-                  ...prev,
-                  capacity: { ...prev.capacity, bedrooms: e.target.value }
-                }))}
-              />
-            </div>
+            <div className="form-row-2">
+              <div className="form-group">
+                <label>City <span className="required">*</span></label>
+                <input
+                  type="text"
+                  placeholder="e.g., Nashik"
+                  value={formData.location.city}
+                  onChange={(e) => setFormData(prev => ({
+                    ...prev,
+                    location: { ...prev.location, city: e.target.value }
+                  }))}
+                  required
+                />
+              </div>
 
-            <div className="form-group">
-              <label>Bathrooms</label>
-              <input
-                type="number"
-                value={formData.capacity.bathrooms}
-                onChange={(e) => setFormData(prev => ({
-                  ...prev,
-                  capacity: { ...prev.capacity, bathrooms: e.target.value }
-                }))}
-              />
+              <div className="form-group">
+                <label>State <span className="required">*</span></label>
+                <input
+                  type="text"
+                  placeholder="e.g., Maharashtra"
+                  value={formData.location.state}
+                  onChange={(e) => setFormData(prev => ({
+                    ...prev,
+                    location: { ...prev.location, state: e.target.value }
+                  }))}
+                  required
+                />
+              </div>
             </div>
           </div>
 
-          <div className="form-group">
-            <label>Amenities</label>
+          {/* Capacity */}
+          <div className="form-section">
+            <div className="form-section-title">
+              <i className="fas fa-users"></i>
+              Capacity
+            </div>
+            
+            <div className="form-row-3">
+              <div className="form-group">
+                <label>Max Guests <span className="required">*</span></label>
+                <input
+                  type="number"
+                  placeholder="e.g., 4"
+                  min="1"
+                  value={formData.capacity.maxGuests}
+                  onChange={(e) => setFormData(prev => ({
+                    ...prev,
+                    capacity: { ...prev.capacity, maxGuests: e.target.value }
+                  }))}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Bedrooms</label>
+                <input
+                  type="number"
+                  placeholder="Optional"
+                  min="0"
+                  value={formData.capacity.bedrooms}
+                  onChange={(e) => setFormData(prev => ({
+                    ...prev,
+                    capacity: { ...prev.capacity, bedrooms: e.target.value }
+                  }))}
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Bathrooms</label>
+                <input
+                  type="number"
+                  placeholder="Optional"
+                  min="0"
+                  value={formData.capacity.bathrooms}
+                  onChange={(e) => setFormData(prev => ({
+                    ...prev,
+                    capacity: { ...prev.capacity, bathrooms: e.target.value }
+                  }))}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Amenities */}
+          <div className="form-section">
+            <div className="form-section-title">
+              <i className="fas fa-star"></i>
+              Amenities
+            </div>
+            
             <div className="amenities-grid">
               {amenityOptions.map(amenity => (
                 <label key={amenity.value} className="amenity-checkbox">
@@ -471,14 +584,19 @@ const PropertyForm = ({ property, onClose }) => {
                     onChange={() => handleAmenityChange(amenity.value)}
                   />
                   <i className={amenity.icon}></i>
-                  {amenity.label}
+                  <span>{amenity.label}</span>
                 </label>
               ))}
             </div>
           </div>
 
-          <div className="form-group">
-            <label>Property Photos (Optional)</label>
+          {/* Photos */}
+          <div className="form-section">
+            <div className="form-section-title">
+              <i className="fas fa-camera"></i>
+              Property Photos
+            </div>
+            
             <div className="photo-upload-section">
               <input
                 type="file"
@@ -489,8 +607,8 @@ const PropertyForm = ({ property, onClose }) => {
                 className="file-input"
               />
               <label htmlFor="property-photos" className="photo-input-label">
-                <i className="fas fa-camera"></i>
-                Add Photos (Max 5)
+                <i className="fas fa-cloud-upload-alt"></i>
+                Click to upload photos (Max 5)
               </label>
               
               {selectedPhotos.length > 0 && (
@@ -519,6 +637,7 @@ const PropertyForm = ({ property, onClose }) => {
 
           <div className="form-actions">
             <button type="button" className="cancel-btn" onClick={onClose}>
+              <i className="fas fa-times"></i>
               Cancel
             </button>
             <button type="submit" className="submit-btn" disabled={loading}>
@@ -528,7 +647,10 @@ const PropertyForm = ({ property, onClose }) => {
                   Saving...
                 </>
               ) : (
-                property ? 'Update Property' : 'Add Property'
+                <>
+                  <i className="fas fa-check"></i>
+                  {property ? 'Update Property' : 'Add Property'}
+                </>
               )}
             </button>
           </div>

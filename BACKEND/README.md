@@ -1,6 +1,6 @@
-# Kumbhathon Backend API
+# Aasray Backend API
 
-## 🚀 REST API for Kumbh Mela Accommodation Platform
+## 🚀 REST API for Aasray Accommodation Platform
 
 Built with Node.js, Express, and MongoDB following MVC architecture.
 
@@ -64,7 +64,7 @@ Create `.env` file:
 
 ```env
 PORT=5000
-MONGODB_URI=mongodb://localhost:27017/kumbhathon
+MONGODB_URI=mongodb://localhost:27017/aasray
 JWT_SECRET=your_secret_key
 JWT_EXPIRE=7d
 FRONTEND_URL=http://localhost:5173
@@ -257,4 +257,4 @@ Ready to deploy on:
 
 ---
 
-**Built with ❤️ for Kumbhathon 2027**
+**Built with ❤️ for Aasray 2027**
