@@ -109,10 +109,13 @@ const Header = ({ isLoggedIn, onAuthClick, onLogout, onNavigate }) => {
           ) : (
             <div className="profile-container">
               {user?.role === 'host' && (
-                <a href="#dashboard" className="dashboard-link">
+                <button 
+                  onClick={() => onNavigate && onNavigate('dashboard')} 
+                  className="dashboard-link"
+                >
                   <i className="fas fa-tachometer-alt"></i>
                   Dashboard
-                </a>
+                </button>
               )}
               <div className="profile-info">
                 <p className="profile-name">{user?.name || 'User'}</p>
