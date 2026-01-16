@@ -1,0 +1,12 @@
+{
+  "buildCommand": "cd FRONTEND/KumbhathonApp && npm install && npm run build",
+  "outputDirectory": "FRONTEND/KumbhathonApp/dist",
+  "installCommand": "cd FRONTEND/KumbhathonApp && npm install",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
