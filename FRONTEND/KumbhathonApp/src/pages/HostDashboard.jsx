@@ -170,13 +170,9 @@ const HostDashboard = () => {
               {properties.map(property => (
             <div key={property._id} className="property-card">
               <div className="property-image">
-                {property.images && property.images.length > 0 ? (
-                  <img src={property.images[0].url} alt={property.title} />
-                ) : (
-                  <div className="no-image">
-                    <i className="fas fa-image"></i>
-                  </div>
-                )}
+                <div className="no-image">
+                  <i className="fas fa-image"></i>
+                </div>
                 <div className="property-status">
                   <span className={`status-badge ${property.status}`}>
                     {property.status}
