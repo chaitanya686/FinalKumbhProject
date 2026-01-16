@@ -3,7 +3,7 @@ import './PropertyDetailPage.css';
 import RatingReviews from '../components/RatingReviews';
 import { bookingAPI, authAPI } from '../services/api';
 
-const PropertyDetailPage = ({ property, onBack }) => {
+const PropertyDetailPage = ({ property, onBack, userBookings = [] }) => {
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
   const [guests, setGuests] = useState(1);
@@ -57,6 +57,16 @@ const PropertyDetailPage = ({ property, onBack }) => {
     { time: "4:00 PM", activity: "Evening Aarti at Godavari", distance: "2 km" }
   ];
 
+  const isDateReserved = (date) => {
+    return userBookings.some(booking => {
+      if (booking.property?._id !== property._id && booking.property !== property._id) return false;
+      const checkIn = new Date(booking.checkIn);
+      const checkOut = new Date(booking.checkOut);
+      const currentDate = new Date(date);
+      return currentDate >= checkIn && currentDate <= checkOut && booking.status !== 'cancelled';
+    });
+  };
+
   const calculateTotal = () => {
     const priceString = property.price || `₹${property.pricing?.basePrice}` || '₹0';
     const pricePerNight = parseInt(priceString.replace(/[^0-9]/g, '')) || 0;
@@ -71,6 +81,10 @@ const PropertyDetailPage = ({ property, onBack }) => {
     }
     if (!checkIn || !checkOut) {
       setBookingError('Please select check-in and check-out dates');
+      return;
+    }
+    if (isDateReserved(checkIn) || isDateReserved(checkOut)) {
+      setBookingError('Selected dates are already reserved');
       return;
     }
     
@@ -228,22 +242,24 @@ const PropertyDetailPage = ({ property, onBack }) => {
 
             <div className="booking-form">
               <div className="form-group">
-                <label>Check-in</label>
+                <label>Check-in {checkIn && isDateReserved(checkIn) && <span style={{color: 'red', fontWeight: 'bold'}}>(Reserved)</span>}</label>
                 <input
                   type="date"
                   value={checkIn}
                   onChange={(e) => setCheckIn(e.target.value)}
                   className="date-input"
+                  min={new Date().toISOString().split('T')[0]}
                 />
               </div>
 
               <div className="form-group">
-                <label>Check-out</label>
+                <label>Check-out {checkOut && isDateReserved(checkOut) && <span style={{color: 'red', fontWeight: 'bold'}}>(Reserved)</span>}</label>
                 <input
                   type="date"
                   value={checkOut}
                   onChange={(e) => setCheckOut(e.target.value)}
                   className="date-input"
+                  min={checkIn || new Date().toISOString().split('T')[0]}
                 />
               </div>
 

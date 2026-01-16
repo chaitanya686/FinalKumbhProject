@@ -31,13 +31,28 @@ const LandingPage = () => {
   });
   const [searchResults, setSearchResults] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [userBookings, setUserBookings] = useState([]);
 
   useEffect(() => {
     // Check authentication status on component mount
     setIsLoggedIn(authAPI.isAuthenticated());
     // Load properties
     loadProperties();
+    // Load user bookings if logged in
+    if (authAPI.isAuthenticated()) {
+      loadUserBookings();
+    }
   }, []);
+
+  const loadUserBookings = async () => {
+    try {
+      const { bookingAPI } = await import('../services/api');
+      const response = await bookingAPI.getMyBookings();
+      setUserBookings(response.data || []);
+    } catch (error) {
+      console.error('Error loading bookings:', error);
+    }
+  };
 
   const loadProperties = async () => {
     setLoading(true);
@@ -107,6 +122,7 @@ const LandingPage = () => {
   const handleAuthSuccess = () => {
     setIsLoggedIn(true);
     setCurrentView('landing');
+    loadUserBookings();
   };
 
   const handleLogout = () => {
@@ -148,7 +164,7 @@ const LandingPage = () => {
           onLogout={handleLogout}
           onNavigate={setCurrentView}
         />
-        <MyBookings onBack={() => setCurrentView('landing')} />
+        <MyBookings onBack={() => setCurrentView('landing')} onViewProperty={handleCardClick} />
         <Footer />
       </div>
     );
@@ -259,6 +275,7 @@ const LandingPage = () => {
         <PropertyDetailPage
           property={selectedProperty}
           onBack={handleBackToListings}
+          userBookings={userBookings}
         />
         <Footer />
       </div>

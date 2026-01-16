@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { bookingAPI } from '../services/api';
 import './MyBookings.css';
 
-const MyBookings = ({ onBack }) => {
+const MyBookings = ({ onBack, onViewProperty }) => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -55,7 +55,7 @@ const MyBookings = ({ onBack }) => {
         ) : (
           <div className="bookings-grid">
             {bookings.map((booking) => (
-              <div key={booking._id} className="booking-card">
+              <div key={booking._id} className="booking-card" onClick={() => onViewProperty(booking.property)} style={{cursor: 'pointer'}}>
                 <div className="booking-header">
                   <h3>{booking.property?.title || 'Property'}</h3>
                   <span className={`status-badge ${booking.status}`}>
@@ -73,7 +73,7 @@ const MyBookings = ({ onBack }) => {
                 {booking.status === 'confirmed' && (
                   <button 
                     className="cancel-btn" 
-                    onClick={() => handleCancel(booking._id)}
+                    onClick={(e) => { e.stopPropagation(); handleCancel(booking._id); }}
                   >
                     <i className="fas fa-times-circle"></i> Cancel Booking
                   </button>
