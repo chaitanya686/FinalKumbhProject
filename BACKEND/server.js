@@ -18,7 +18,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:3000', 'https://kumbhthon-1wl8-pb7ii7nlh-chaitanya686s-projects.vercel.app', process.env.FRONTEND_URL],
+  origin: true,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -38,8 +38,12 @@ app.use('/api/bookings', require('./src/routes/bookingRoutes'));
 app.use('/api/accommodations', require('./routes/accommodations'));
 
 // Health check
+app.get('/', (req, res) => {
+  res.json({ status: 'OK', message: 'Kumbhathon API is running', timestamp: new Date() });
+});
+
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'OK', message: 'Kumbhathon API is running' });
+  res.json({ status: 'OK', message: 'Kumbhathon API is running', timestamp: new Date() });
 });
 
 // Test image upload page
