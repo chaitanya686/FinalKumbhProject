@@ -64,15 +64,22 @@ const LandingPage = () => {
         throw new Error('No properties found');
       }
 
-      // Group properties by type
-      const grouped = {
+      // Group properties by type and ensure dummy data appears first
+      const hostGrouped = {
         hotels: allProperties.filter(p => p.type === 'hotel'),
         homestays: allProperties.filter(p => p.type === 'homestay'),
         tents: allProperties.filter(p => p.type === 'tent'),
         dormitories: allProperties.filter(p => p.type === 'dormitory')
       };
 
-      setProperties(grouped);
+      const merged = {
+        hotels: [...(accommodations.hotels || []), ...hostGrouped.hotels],
+        homestays: [...(accommodations.homestays || []), ...hostGrouped.homestays],
+        tents: [...(accommodations.tents || []), ...hostGrouped.tents],
+        dormitories: [...(accommodations.dormitories || []), ...hostGrouped.dormitories]
+      };
+
+      setProperties(merged);
     } catch (error) {
       console.error('Error loading properties:', error);
       // Fallback to dummy data if API fails
@@ -181,7 +188,7 @@ const LandingPage = () => {
           onLogout={handleLogout}
           onNavigate={setCurrentView}
         />
-        <React.Suspense fallback={<div style={{padding: '2rem', textAlign: 'center'}}>Loading...</div>}>
+        <React.Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center' }}>Loading...</div>}>
           <HostDashboard onBack={() => setCurrentView('landing')} />
         </React.Suspense>
         <Footer />
@@ -215,7 +222,7 @@ const LandingPage = () => {
           onLogout={handleLogout}
           onNavigate={setCurrentView}
         />
-        <AccommodationPage 
+        <AccommodationPage
           onCardClick={handleCardClick}
           onBack={() => setCurrentView('landing')}
         />
@@ -234,7 +241,7 @@ const LandingPage = () => {
           onLogout={handleLogout}
           onNavigate={setCurrentView}
         />
-        <ExploreNashikPage 
+        <ExploreNashikPage
           onBack={() => setCurrentView('landing')}
         />
         <Footer />
@@ -252,7 +259,7 @@ const LandingPage = () => {
           onLogout={handleLogout}
           onNavigate={setCurrentView}
         />
-        <ServicesPage 
+        <ServicesPage
           onBack={() => setCurrentView('landing')}
         />
         <Footer />
