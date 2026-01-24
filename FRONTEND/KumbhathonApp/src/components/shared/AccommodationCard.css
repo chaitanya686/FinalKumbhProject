@@ -55,6 +55,21 @@
   font-size: 0.625rem;
 }
 
+.image-count {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
 /* Arrow positioned at top-right, partially overlaid on image */
 .card-arrow-overlay {
   position: absolute;

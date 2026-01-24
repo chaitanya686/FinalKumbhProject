@@ -9,7 +9,29 @@ const AccommodationCard = ({ accommodation, onClick }) => {
   };
 
   const security = getSecurityLevel(accommodation.rating || accommodation.ratings?.average || 0);
-  const imageUrl = accommodation.image || (accommodation.images && accommodation.images[0]?.url) || 'https://via.placeholder.com/500x300?text=No+Image';
+  
+  // Get all available images - dummy data first, then host uploaded
+  const getAllImages = () => {
+    const images = [];
+    
+    // Add dummy data image first if it exists
+    if (accommodation.image) {
+      images.push(accommodation.image);
+    }
+    
+    // Add host uploaded images after dummy images
+    if (accommodation.images && accommodation.images.length > 0) {
+      accommodation.images.forEach(img => {
+        if (img.url) images.push(img.url);
+      });
+    }
+    
+    return images.length > 0 ? images : ['https://via.placeholder.com/500x300?text=No+Image'];
+  };
+  
+  const allImages = getAllImages();
+  const displayImage = allImages[0]; // Show first image as main
+  
   const displayName = accommodation.name || accommodation.title;
   const displayPrice = accommodation.price || `₹${accommodation.pricing?.basePrice}`;
   const displayRating = accommodation.rating || accommodation.ratings?.average || 0;
@@ -17,7 +39,12 @@ const AccommodationCard = ({ accommodation, onClick }) => {
   return (
     <div className="accommodation-card" onClick={onClick}>
       <div className="card-image-container">
-        <img src={imageUrl} alt={displayName} className="card-image" />
+        <img src={displayImage} alt={displayName} className="card-image" />
+        {allImages.length > 1 && (
+          <div className="image-count">
+            <i className="fas fa-images"></i> {allImages.length}
+          </div>
+        )}
         <div className="security-badge">
           <span className="security-icon">🛡️</span>
           <span className="security-text">{security.label}</span>
